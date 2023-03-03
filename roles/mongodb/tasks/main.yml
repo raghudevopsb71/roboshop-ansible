@@ -1,4 +1,38 @@
-- name: Print Mongodb
-  debug:
-      msg: mongodb
+
+#print_head "Update MongoDB Listen address"
+#sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>${log_file}
+#status_check $?
+#
+#print_head "Enable MongoDB"
+#systemctl enable mongod &>>${log_file}
+#status_check $?
+#
+#print_head "Start MongoDB Service"
+#systemctl restart mongod &>>${log_file}
+#status_check $?
+#
+#
+
+- name: Setup MongoDB YUM repo file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install MongoDB
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+- name: Update MongoDB Listen Address
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Start MongoDB
+  ansible.builtin.systemd:
+    name: mongod
+    state: started
+    enable: true
+
 
