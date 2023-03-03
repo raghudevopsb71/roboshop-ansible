@@ -18,6 +18,6 @@
   ansible.builtin.systemd:
     name: mongod
     state: started
-    enable: true
+    enabled: true
 
 
