@@ -1,16 +1,4 @@
 
-#print_head "Disabling MySQL 8 Version"
-#dnf module disable mysql -y  &>>${log_file}
-#status_check $?
-#
-#print_head "Copy MySQL repo file"
-#cp ${code_dir}/configs/mysql.repo /etc/yum.repos.d/mysql.repo  &>>${log_file}
-#status_check $?
-#
-#print_head "Installing MySQL Server"
-#yum install mysql-community-server -y  &>>${log_file}
-#status_check $?
-#
 #print_head "Enable MYSQL Service"
 #systemctl enable mysqld  &>>${log_file}
 #status_check $?
@@ -31,4 +19,23 @@
   ansible.builtin.copy:
     src: mysql.repo
     dest: /etc/yum.repos.d/mysql.repo
+
+- name: Disable MySQL 8
+  ansible.builtin.shell: dnf module disable mysql -y
+
+- name: Install MySQL 5.7
+  ansible.builtin.yum:
+    name: mysql-community-server
+    state: installed
+
+- name: Start MySQL Service
+  ansible.builtin.systemd:
+    name: mysqld
+    state: started
+    enabled: yes
+
+- name: Set Root Password
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass RoboShop@1
+
+
 
