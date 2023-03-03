@@ -1,0 +1,4 @@
+- name: Print shipping
+  debug:
+      msg: shipping
+

@@ -1,0 +1,4 @@
+- name: Print rabbitmq
+  debug:
+      msg: rabbitmq
+

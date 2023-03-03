@@ -1,0 +1,4 @@
+- name: Print payment
+  debug:
+      msg: payment
+

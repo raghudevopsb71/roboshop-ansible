@@ -1,0 +1,4 @@
+- name: Print redis
+  debug:
+      msg: redis
+
