@@ -1,18 +1,3 @@
-
-#print_head "Update MongoDB Listen address"
-#sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>${log_file}
-#status_check $?
-#
-#print_head "Enable MongoDB"
-#systemctl enable mongod &>>${log_file}
-#status_check $?
-#
-#print_head "Start MongoDB Service"
-#systemctl restart mongod &>>${log_file}
-#status_check $?
-#
-#
-
 - name: Setup MongoDB YUM repo file
   ansible.builtin.copy:
     src: mongodb.repo
