@@ -1,16 +1,19 @@
-- name: Install Maven
+- name: Install Python
   ansible.builtin.yum:
-    name: maven
+    name:
+      - python36
+      - gcc
+      - python3-devel
     state: installed
 
 - name: App Pre-requisites
   ansible.builtin.import_tasks:
     file: app-prereq.yml
 
-- name: Install Maven Dependencies
-  ansible.builtin.shell: mvn clean package; mv target/{{component}}-1.0.jar {{component}}.jar
-  args:
-    chdir: /app
+- name: Install Python Dependencies
+  ansible.builtin.pip:
+    requirements: /app/requirements.txt
+    executable: pip3.6
 
 - name: Schema Setup
   ansible.builtin.import_tasks:
