@@ -11,7 +11,7 @@
 #  status_check $?
 
 - name: Copy SystemD Config file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
 
