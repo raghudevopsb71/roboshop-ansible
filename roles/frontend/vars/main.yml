@@ -1,1 +1,2 @@
 component: frontend
+node_exporter: true
