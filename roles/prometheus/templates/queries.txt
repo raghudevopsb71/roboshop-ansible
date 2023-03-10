@@ -1,0 +1,12 @@
+## Service
+
+node_systemd_unit_state{exported_name="cart.service", state="active"}
+
+## CPU
+
+100 - (avg by (name) (rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100 )
+
+## Memory
+
+100 - (((node_memory_Buffers_bytes + node_memory_Cached_bytes + node_memory_MemFree_bytes) / node_memory_MemTotal_bytes) * 100)
+
