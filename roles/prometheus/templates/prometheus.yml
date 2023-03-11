@@ -14,7 +14,7 @@ alerting:
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
 {% for file in alert_files %}
-  - {{ item }}
+  - {{ file }}
 {% endfor %}
 
 # A scrape configuration containing exactly one endpoint to scrape:
