@@ -5,9 +5,11 @@
 
 - name: Update Alerts Configuration
   ansible.builtin.template:
-    src: alerts.yml
-    dest: /opt/prometheus/alerts.yml
-  loop
+    src: "{{ item }}"
+    dest: /opt/prometheus/{{ item }}
+  loop:
+    - service-down-alerts.yml
+    - alerts.yml
 
 - name: Restart prometheus
   ansible.builtin.systemd:
