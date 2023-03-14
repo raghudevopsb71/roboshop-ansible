@@ -11,6 +11,6 @@
   ansible.builtin.import_role:
     name: elk
     tasks_from: filebeat
-  #when: filebeat
+  when: filebeat
 
 
