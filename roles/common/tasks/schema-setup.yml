@@ -10,9 +10,14 @@
       ansible.builtin.yum:
         name: mongodb-org-shell
         state: installed
+    - name: Download MongoDB Pem file
+      ansible.builtin.get_url:
+        url: https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
+        dest: /app/rds-combined-ca-bundle.pem
 
     - name: Load Schema
-      ansible.builtin.shell: mongo --host mongodb-dev.devopsb71.online </app/schema/{{component}}.js
+      #ansible.builtin.shell: mongo --host mongodb-dev.devopsb71.online </app/schema/{{component}}.js
+      ansible.builtin.shell: mongo --ssl --host dev-docdb.cluster-cbvsbeoyxek4.us-east-1.docdb.amazonaws.com:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username admin1 --password <insertYourPassword> </app/schema/{{component}}.js
 
 - name: MySQL Schema
   when: schema_type == "mysql"
