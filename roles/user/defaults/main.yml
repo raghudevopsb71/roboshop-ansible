@@ -1,1 +1,1 @@
-app_version: {{ lookup('amazon.aws.aws_ssm', '{{env}}.{{component}}.app_version', region='us-east-1') }}
+app_version: "{{ lookup('amazon.aws.aws_ssm', '{{env}}.{{component}}.app_version', region='us-east-1') }}"
