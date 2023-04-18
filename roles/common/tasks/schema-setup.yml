@@ -31,12 +31,13 @@
       ansible.builtin.shell: echo 'show databases' | mysql -h {{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.endpoint', region='us-east-1') }} -u{{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.user', region='us-east-1') }} -p{{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.pass', region='us-east-1') }} | grep cities
       register: schema_status
       ignore_errors: true
-    
+
     - name: print
       debug:
         msg: "{{schema_status}}"
 
     - name: Load Schema
       ansible.builtin.shell: mysql -h {{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.endpoint', region='us-east-1') }} -u{{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.user', region='us-east-1') }} -p{{ lookup('amazon.aws.aws_ssm', '{{env}}.rds.pass', region='us-east-1') }} < /app/schema/{{component}}.sql
+      when: schema_status.rc == 1
 
 
